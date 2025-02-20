@@ -2,15 +2,19 @@ const input = document.getElementById("reviewInput");
 
 const submitButton = document.getElementById("submit");
 
+const titleInput = document.getElementById("title");
+
 const reviewBox = document.getElementById("reviewBox");
 
 const ratingStars = Array.from(document.querySelectorAll(".star-icon"));
 
-
 submitButton.addEventListener("click", () => {
   let inputVal = input.value;
+  let titleVal = titleInput.value;
+
   const noOfStars = getNumberOfStar();
   const newReviewHtml = `<div>
+                <h2 class="text-lg font-semibold">${titleVal}</h2>
                 <div class="text-wrap">
                   ${inputVal}
                 </div>
@@ -19,8 +23,14 @@ submitButton.addEventListener("click", () => {
               </ul>
                  <span class="font-semibold text-gray-500">${getCurrentDateTime()}</span>
               </div>`;
-  reviewBox.insertAdjacentHTML("afterbegin", newReviewHtml);
+
+  if (!inputVal || !titleVal) {
+    alert("Please fill all the fields");
+  } else {
+    reviewBox.insertAdjacentHTML("afterbegin", newReviewHtml);
+  }
   input.value = "";
+  titleInput.value = "";
   resetPaint();
 });
 
